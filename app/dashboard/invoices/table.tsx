@@ -1,7 +1,8 @@
+import { DeleteInvoice, UpdateInvoice } from '@/app/dashboard/invoices/buttons';
+import { formatCurrency, formatDateToLocal } from '@/app/lib/utils';
+
 import Image from 'next/image';
-import { UpdateInvoice, DeleteInvoice } from '@/app/ui/invoices/buttons';
-import InvoiceStatus from '@/app/ui/invoices/status';
-import { formatDateToLocal, formatCurrency } from '@/app/lib/utils';
+import InvoiceStatus from '@/app/dashboard/invoices/status';
 import { fetchFilteredInvoices } from '@/app/lib/data';
 
 export default async function InvoicesTable({
