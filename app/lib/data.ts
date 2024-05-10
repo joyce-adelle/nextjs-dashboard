@@ -17,6 +17,13 @@ export async function fetchRevenue() {
   noStore();
 
   try {
+    // Artificially delay a response for demo purposes.
+    // Don't do this in production :)
+
+    console.log('Fetching revenue data...');
+    await new Promise((resolve) => setTimeout(resolve, 3000));
+
+    console.log('Data fetch completed after 3 seconds.');
 
     return prisma.revenue.findMany();
 
@@ -76,7 +83,7 @@ export async function fetchLatestInvoices() {
 export async function fetchCardData() {
 
   noStore();
-
+  
   try {
 
     const numberOfInvoices = await prisma.invoices.count();
