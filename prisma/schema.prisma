@@ -36,7 +36,7 @@ model invoices  {
   id String @id @default(cuid())
   customerId String @map("customer_id")
   amount Decimal @db.Decimal(20,2)
-  date String
+  date DateTime @db.Date
   // In TypeScript, this is called a String union type.
   // It means that the "status" property can only be one of the two Strings: 'pending' or 'paid'.
   status status @default(PENDING)

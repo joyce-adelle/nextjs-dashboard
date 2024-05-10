@@ -48,7 +48,7 @@ async function seedInvoices(prisma) {
         (invoice) =>
           prisma.$executeRaw`
         INSERT INTO invoices (id, customer_id, amount, status, date)
-        VALUES (${uuidv7()}, ${invoice.customer_id}, ${invoice.amount}, ${invoice.status.toUpperCase()}::status, ${invoice.date})
+        VALUES (${uuidv7()}, ${invoice.customer_id}, ${invoice.amount}, ${invoice.status.toUpperCase()}::status, ${invoice.date}::date)
         ON CONFLICT (id) DO NOTHING;
       `),
     );
