@@ -7,21 +7,16 @@ import {
 } from './definitions';
 
 import { formatCurrency } from './utils';
+import { unstable_noStore as noStore } from 'next/cache';
 import prisma from './prisma';
 import { status } from '@prisma/client';
 
 export async function fetchRevenue() {
-  // Add noStore() here to prevent the response from being cached.
+  // noStore() here to prevent the response from being cached.
   // This is equivalent to in fetch(..., {cache: 'no-store'}).
+  noStore();
 
   try {
-    // Artificially delay a response for demo purposes.
-    // Don't do this in production :)
-
-    // console.log('Fetching revenue data...');
-    // await new Promise((resolve) => setTimeout(resolve, 3000));
-
-    // console.log('Data fetch completed after 3 seconds.');
 
     return prisma.revenue.findMany();
 
@@ -29,9 +24,12 @@ export async function fetchRevenue() {
     console.error('Database Error:', error);
     throw new Error('Failed to fetch revenue data.');
   }
+
 }
 
 export async function fetchLatestInvoices() {
+
+  noStore();
 
   try {
 
@@ -76,6 +74,9 @@ export async function fetchLatestInvoices() {
 }
 
 export async function fetchCardData() {
+
+  noStore();
+
   try {
 
     const numberOfInvoices = await prisma.invoices.count();
