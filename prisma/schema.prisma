@@ -1,0 +1,55 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+//Models
+
+model user  {
+  id String @id @default(cuid())
+  name String
+  email String @unique
+  password String
+
+  @@map(name: "users")
+}
+
+model customers  {
+  id String @id @default(cuid())
+  name String
+  email String @unique
+  image_url String
+  invoices invoices[]
+}
+
+model invoices  {
+  id String @id @default(cuid())
+  customerId String @map("customer_id")
+  amount Decimal @db.Decimal(20,2)
+  date String
+  // In TypeScript, this is called a String union type.
+  // It means that the "status" property can only be one of the two Strings: 'pending' or 'paid'.
+  status status @default(PENDING)
+
+  customer customers @relation(fields: [customerId], references: [id])
+}
+
+model revenue  {
+  month String @id @db.VarChar(4)
+  revenue Decimal @db.Decimal(20,2)
+}
+
+enum status {
+  PENDING
+  PAID
+}
