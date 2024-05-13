@@ -1,7 +1,4 @@
-import {
-  DeleteInvoice,
-  UpdateInvoice,
-} from '@/app/ui/invoices/buttons';
+import { DeleteInvoice, UpdateInvoice } from '@/app/ui/invoices/buttons';
 import { formatCurrency, formatDateToLocal } from '@/app/lib/utils';
 
 import Image from 'next/image';
