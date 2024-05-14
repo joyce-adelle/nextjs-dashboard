@@ -31,9 +31,9 @@ export type CustomersTableType = {
   name: string;
   email: string;
   image_url: string;
-  total_invoices: number;
-  total_pending: number;
-  total_paid: number;
+  total_invoices: bigint;
+  total_pending: bigint;
+  total_paid: bigint;
 };
 
 export type FormattedCustomersTable = {
@@ -52,10 +52,3 @@ export type CustomerField = Prisma.customersGetPayload<{
     name: true
   }
 }>;
-
-// export type InvoiceForm = {
-//   id: string;
-//   customer_id: string;
-//   amount: number;
-//   status: 'pending' | 'paid';
-// };
