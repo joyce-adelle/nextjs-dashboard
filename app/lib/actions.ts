@@ -14,6 +14,7 @@ const FormSchema = z.object({
 });
 
 const CreateInvoice = FormSchema.omit({ id: true, date: true });
+const UpdateInvoice = FormSchema.omit({ id: true, date: true });
 
 export async function createInvoice(formData: FormData) {
     const { amount, customerId, status } = CreateInvoice.parse({
@@ -31,12 +32,40 @@ export async function createInvoice(formData: FormData) {
             customerId: customerId,
             date: new Date()
         }
-    }).catch(err => { 
+    }).catch(err => {
         console.error(err);
         throw new Error("Unable to create invoice");
     });
 
     //instead of using useEffect to update page with new invoice
+    revalidatePath('/dashboard/invoices');
+    redirect('/dashboard/invoices');
+
+}
+
+export async function updateInvoice(id: string, formData: FormData) {
+    const { customerId, amount, status } = UpdateInvoice.parse({
+        customerId: formData.get('customerId'),
+        amount: formData.get('amount'),
+        status: formData.get('status'),
+    });
+
+    const amountInCents = amount * 100;
+
+    await prisma.invoices.update({
+        data: {
+            customerId: customerId,
+            amount: amountInCents,
+            status: status
+        },
+        where: {
+            id: id
+        }
+    }).catch(err => {
+        console.error(err);
+        throw new Error("Unable to update invoice");
+    });
+
     revalidatePath('/dashboard/invoices');
     redirect('/dashboard/invoices');
 
