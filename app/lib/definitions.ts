@@ -46,10 +46,12 @@ export type FormattedCustomersTable = {
   total_paid: string;
 };
 
-export type CustomerField = {
-  id: string;
-  name: string;
-};
+export type CustomerField = Prisma.customersGetPayload<{
+  select: {
+    id: true,
+    name: true
+  }
+}>;
 
 export type InvoiceForm = {
   id: string;
