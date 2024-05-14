@@ -45,7 +45,7 @@ export default async function RevenueChart(){
                 className="w-full rounded-md bg-blue-300"
                 style={{
                   height: `${
-                    (chartHeight / topLabel) * month.revenue.toNumber()
+                    (chartHeight / topLabel) * Number(month.revenue)
                   }px`,
                 }}
               ></div>
